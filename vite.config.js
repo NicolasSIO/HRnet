@@ -1,10 +1,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import Pages from "vite-plugin-pages";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    Pages({
+      dirs: "src/pages",
+    }),
+  ],
   resolve: {
     alias: [
       {
@@ -17,7 +23,7 @@ export default defineConfig({
       },
       {
         find: "@pages",
-        replacement: path.resolve(__diranem, "src/pages"),
+        replacement: path.resolve(__dirname, "src/pages"),
       },
     ],
   },
