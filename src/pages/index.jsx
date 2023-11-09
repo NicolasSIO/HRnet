@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addEmployeeAction } from "@/redux/employee";
 import { Controller, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import DatePicker from "react-datepicker";
@@ -10,14 +12,45 @@ import "./index.css";
 
 const Index = () => {
   const { register, control, handleSubmit } = useForm();
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const formatDate = (originalDateStr) => {
+      // Convertir la chaîne de caractères en objet Date
+      const originalDate = new Date(originalDateStr);
+
+      // Obtenir le jour, le mois et l'année
+      const day = originalDate.getDate().toString().padStart(2, "0");
+      const month = (originalDate.getMonth() + 1).toString().padStart(2, "0");
+      const year = originalDate.getFullYear();
+
+      // Créer la nouvelle chaîne de caractères avec le format souhaité
+      const formattedDate = `${day}/${month}/${year}`;
+
+      return formattedDate;
+    };
+
+    const dateBirth = formatDate(data.birthDate);
+    const dateStart = formatDate(data.startDate);
+
+    const employee = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      birthDate: dateBirth,
+      dateStart: dateStart,
+      street: data.street,
+      city: data.city,
+      state: data.state,
+      zipCode: data.zipCode,
+      department: data.department,
+    };
+
+    dispatch(addEmployeeAction([employee]));
   };
   return (
     <>
-      <div>
-        <h1 className="title">HRnet</h1>
+      <div className="title">
+        <h1>HRnet</h1>
         <Link to="employeeList">View Current Employee</Link>
       </div>
       <div className="container">
@@ -28,10 +61,11 @@ const Index = () => {
           <label htmlFor="lastName">Last Name</label>
           <input type="text" id="lastName" {...register("lastName")} />
 
-          <label htmlFor="dateBirth">Date of Birth</label>
+          <label htmlFor="birthDate">Date of Birth</label>
           <Controller
             control={control}
-            name="dateBirth"
+            name="birthDate"
+            id="birthDate"
             render={({ field: { onChange, onBlur, value } }) => (
               <DatePicker
                 type="date"
@@ -51,6 +85,7 @@ const Index = () => {
           <Controller
             control={control}
             name="startDate"
+            id="startDate"
             render={({ field: { onChange, onBlur, value } }) => (
               <DatePicker
                 type="date"
@@ -79,6 +114,7 @@ const Index = () => {
             <Controller
               control={control}
               name="state"
+              id="state"
               render={({ field: { onChange, onBlur, value } }) => (
                 <Select
                   className="dropdown"
@@ -98,6 +134,7 @@ const Index = () => {
           <Controller
             control={control}
             name="department"
+            id="department"
             render={({ field: { onChange, onBlur, value } }) => (
               <Select
                 className="dropdown"

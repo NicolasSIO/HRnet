@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .container {
@@ -39,17 +40,4 @@ button {
 
 button:hover {
   cursor: pointer;
-}
-
-.dropdown {
-  background-color: rgb(59, 59, 59);
-}
-
-.react-dropdown-select-item {
-  background-color: rgb(59, 59, 59);
-}
-
-.css-z2hyoe-ItemComponent:hover,
-.css-z2hyoe-ItemComponent:focus {
-  background-color: rgba(59, 59, 59, 0.7) !important;
 }
