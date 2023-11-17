@@ -10,11 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mui/material": "^5.14.17",
-    "@mui/system": "^5.14.17",
-    "@mui/x-data-grid": "^6.18.1",
     "@reduxjs/toolkit": "^1.9.7",
     "react": "^18.2.0",
+    "react-data-grid": "^7.0.0-beta.41",
     "react-datepicker": "^4.21.0",
     "react-dom": "^18.2.0",
     "react-dropdown-select": "^4.10.0",

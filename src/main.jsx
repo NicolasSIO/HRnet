@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import routes from "~react-pages";
 import { Provider } from "react-redux";
@@ -15,7 +15,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={mainStore}>
       <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
+        <Suspense fallback={<div>Loading ...</div>}>
+          <RouterProvider router={router} />
+        </Suspense>
       </PersistGate>
     </Provider>
   </React.StrictMode>

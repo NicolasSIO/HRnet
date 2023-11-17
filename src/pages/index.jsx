@@ -14,7 +14,13 @@ const Index = () => {
   const { register, control, handleSubmit } = useForm();
   const dispatch = useDispatch();
 
+  const handleReset = () => {
+    dispatch(resetEmployee());
+  };
+
   const onSubmit = (data) => {
+    const stateName = data.state[0].value;
+    console.log(stateName);
     const formatDate = (originalDateStr) => {
       // Convertir la chaîne de caractères en objet Date
       const originalDate = new Date(originalDateStr);
@@ -40,12 +46,13 @@ const Index = () => {
       dateStart: dateStart,
       street: data.street,
       city: data.city,
-      state: data.state,
+      state: data.state[0].value,
       zipCode: data.zipCode,
-      department: data.department,
+      department: data.department[0].name,
     };
+    console.log(employee);
 
-    dispatch(addEmployeeAction([employee]));
+    dispatch(addEmployeeAction(employee));
   };
   return (
     <>
@@ -119,7 +126,7 @@ const Index = () => {
                 <Select
                   className="dropdown"
                   options={states}
-                  onChange={(values) => onChange(values)}
+                  onChange={(value) => onChange(value)}
                   onBlur={onBlur}
                   selected={value}
                 />
