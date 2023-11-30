@@ -1,26 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addEmployeeAction } from "@/redux/employee";
 import { Controller, useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-dropdown-select";
 import { states, departments } from "@/api/data";
+import Modal from "modal-vite-lib";
 import "./index.css";
 
 const Index = () => {
+  const [isDisplay, setIsDislplay] = useState(false);
   const { register, control, handleSubmit } = useForm();
   const dispatch = useDispatch();
 
-  const handleReset = () => {
-    dispatch(resetEmployee());
-  };
-
   const onSubmit = (data) => {
-    const stateName = data.state[0].value;
-    console.log(stateName);
     const formatDate = (originalDateStr) => {
       // Convertir la chaîne de caractères en objet Date
       const originalDate = new Date(originalDateStr);
@@ -50,8 +45,8 @@ const Index = () => {
       zipCode: data.zipCode,
       department: data.department[0].name,
     };
-    console.log(employee);
 
+    setIsDislplay(true);
     dispatch(addEmployeeAction(employee));
   };
   return (
@@ -154,10 +149,12 @@ const Index = () => {
               />
             )}
           />
-
           <button type="submit">Save</button>
         </form>
-        <DevTool control={control} />
+        <Modal onClose={() => setIsDislplay(false)} isDisplay={isDisplay}>
+          <h4>Employé créé</h4>
+          <p>L'employé a été ajouté à la base !</p>
+        </Modal>
       </div>
     </>
   );
