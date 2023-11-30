@@ -11,11 +11,14 @@ import Modal from "modal-vite-lib";
 import "./index.css";
 
 const Index = () => {
+  // State for modal
   const [isDisplay, setIsDislplay] = useState(false);
+
   const { register, control, handleSubmit } = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
+    // Function to format date to XX/XX/XXXX
     const formatDate = (originalDateStr) => {
       // Convertir la chaîne de caractères en objet Date
       const originalDate = new Date(originalDateStr);
@@ -34,6 +37,7 @@ const Index = () => {
     const dateBirth = formatDate(data.birthDate);
     const dateStart = formatDate(data.startDate);
 
+    // Create an employee with form values
     const employee = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -46,7 +50,9 @@ const Index = () => {
       department: data.department[0].name,
     };
 
+    // Display modal
     setIsDislplay(true);
+    
     dispatch(addEmployeeAction(employee));
   };
   return (

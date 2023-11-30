@@ -6,9 +6,8 @@ import { useNavigate } from "react-router";
 import "./employeeList.css";
 
 const EmployeeList = () => {
-  const employees = useSelector((state) => state.employee.employee);
-  console.log(employees);
   const navigate = useNavigate();
+  const employees = useSelector((state) => state.employee.employee);
 
   const columns = [
     { key: "firstName", name: "First Name" },
